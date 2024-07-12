@@ -88,7 +88,7 @@ function processDisplay() {
     arg2 = null;
     op = null;
   } else {
-    displayValue = String(opMap[op](num1, num2));
+    displayValue = truncate(String(opMap[op](num1, num2)));
     arg1 = displayValue;
     arg2 = null;
     op = null;
@@ -97,5 +97,5 @@ function processDisplay() {
 
 function truncate(str) {
   const num = parseFloat(str);
-  return String(Math.round(num * 10) / 10);
+  return String(Math.round(num * 10 ** 5) / 10 ** 5);
 }
