@@ -1,0 +1,93 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  gap: 16px;
+  padding: 32px;
+}
+
+body,
+.keys,
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.calculator {
+  padding: 16px;
+  background-color: gainsboro;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.keys,
+.row {
+  gap: 8px;
+}
+
+button {
+  text-align: center;
+  flex-grow: 1;
+}
+
+button,
+.display {
+  padding: 8px;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.operators button {
+  background-color: rgb(185, 230, 197);
+  border-color: rgb(9, 65, 39);
+  color: rgb(9, 65, 39);
+}
+
+.numbers button,
+.other button {
+  background-color: rgb(215, 239, 250);
+  border-color: rgb(20, 20, 99);
+  color: rgb(20, 20, 99);
+}
+
+.display {
+  background-color: rgb(247, 250, 215);
+  border-color: rgb(74, 60, 13);
+  color: rgb(74, 60, 13);
+  height: 40px;
+}
+
+h1 {
+  color: rgb(20, 20, 99);
+}
+
+.display {
+  text-align: center;
+}
+
+.display,
+.keys {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.calculator {
+  width: 20%;
+}
+
+.display {
+  overflow-x: scroll;
+}
+
+.display::-webkit-scrollbar {
+  display: none;
+}
