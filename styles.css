@@ -36,6 +36,7 @@ body,
 button {
   text-align: center;
   flex-grow: 1;
+  flex-shrink: 1;
 }
 
 button,
@@ -63,7 +64,11 @@ button,
   background-color: rgb(247, 250, 215);
   border-color: rgb(74, 60, 13);
   color: rgb(74, 60, 13);
-  height: 40px;
+  height: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {

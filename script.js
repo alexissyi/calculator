@@ -65,7 +65,7 @@ function updateDisplay(event) {
         if (newContent !== "." || !arg1.includes(newContent)) {
           arg1 += newContent;
         }
-      } else if (newContent != ".") {
+      } else if (newContent !== ".") {
         arg1 = newContent;
       }
       displayValue = arg1;
@@ -93,4 +93,9 @@ function processDisplay() {
     arg2 = null;
     op = null;
   }
+}
+
+function truncate(str) {
+  const num = parseFloat(str);
+  return String(Math.round(num * 10) / 10);
 }
