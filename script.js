@@ -3,13 +3,27 @@ let arg2; //string
 let op; //string
 let displayValue = "";
 const display = document.querySelector(".display");
-const keys = document.querySelector(".keys");
+const calculator = document.querySelector(".calculator");
 
 const opMap = {};
 opMap["+"] = add;
 opMap["x"] = multiply;
 opMap["-"] = subtract;
 opMap["/"] = divide;
+
+const nonOpKeys = new Set([
+  ".",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+]);
 
 function add(num1, num2) {
   return num1 + num2;
@@ -32,52 +46,63 @@ function operate(op, num1, num2) {
   return opMap[op](num1, num2);
 }
 
-function updateDisplay(event) {
-  const newContent = event.target.textContent;
-  if (newContent === "Clear") {
-    displayValue = "";
-    arg1 = null;
-    arg2 = null;
-    op = null;
-  } else if (newContent === "=") {
-    if (op && arg1 && arg2) {
-      processDisplay();
-    }
-  } else if (newContent in opMap) {
-    if (op) {
-      if (op && arg1 && arg2) {
-        processDisplay();
-      }
-    }
-    op = newContent;
-  } else if (event.target.tagName === "BUTTON") {
-    if (op) {
-      if (arg2) {
-        if (newContent !== "." || !arg2.includes(newContent)) {
-          arg2 += newContent;
-        }
-      } else if (newContent !== ".") {
-        arg2 = newContent;
-      }
-      displayValue = arg2;
-    } else {
-      if (arg1) {
-        if (newContent !== "." || !arg1.includes(newContent)) {
-          arg1 += newContent;
-        }
-      } else if (newContent !== ".") {
-        arg1 = newContent;
-      }
-      displayValue = arg1;
-    }
-  }
-  display.textContent = displayValue;
+function updateDisplayFromClick(event) {
+  const key = event.target.textContent;
+  updateDisplay(key);
   console.log("arg1: ", arg1);
   console.log("arg2: ", arg2);
   console.log("op: ", op);
 }
 
-keys.addEventListener("click", updateDisplay);
+function updateDisplayFromKey(event) {
+  const key = event.key;
+  console.log("key press: " + key);
+  updateDisplay(key);
+  console.log("arg1: ", arg1);
+  console.log("arg2: ", arg2);
+  console.log("op: ", op);
+}
+
+function updateDisplay(key) {
+  if (key === "Clear" || key === "Delete") {
+    displayValue = "";
+    arg1 = null;
+    arg2 = null;
+    op = null;
+  } else if (key === "=" || key === "Enter") {
+    if (op && arg1 && arg2) {
+      processDisplay();
+    }
+  } else if (key in opMap) {
+    if (op) {
+      if (op && arg1 && arg2) {
+        processDisplay();
+      }
+    }
+    op = key;
+  } else if (nonOpKeys.has(key)) {
+    if (op) {
+      if (arg2) {
+        if (key !== "." || !arg2.includes(key)) {
+          arg2 += key;
+        }
+      } else if (key !== ".") {
+        arg2 = key;
+      }
+      displayValue = arg2;
+    } else {
+      if (arg1) {
+        if (key !== "." || !arg1.includes(key)) {
+          arg1 += key;
+        }
+      } else if (key !== ".") {
+        arg1 = key;
+      }
+      displayValue = arg1;
+    }
+  }
+  display.textContent = displayValue;
+}
 
 function processDisplay() {
   const num1 = parseFloat(arg1);
@@ -99,3 +124,7 @@ function truncate(str) {
   const num = parseFloat(str);
   return String(Math.round(num * 10 ** 5) / 10 ** 5);
 }
+
+calculator.addEventListener("click", updateDisplayFromClick);
+
+document.addEventListener("keyup", updateDisplayFromKey);
