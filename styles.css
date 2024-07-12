@@ -78,6 +78,7 @@ h1 {
 .display {
   text-align: center;
   width: 100%;
+  font-weight: bold;
 }
 
 .display-container {
